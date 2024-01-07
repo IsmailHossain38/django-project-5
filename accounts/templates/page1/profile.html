@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+ <br>
+ <br>
+ <br>
+ <br>
+<table class="table border">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Book Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Date</th>
+        <th scope="col">amount</th>
+
+        <th scope="col">Return book</th>
+        <th scope="col">Review book</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dt in data %}
+      <tr>
+        <td>{{dt.id}}</td>
+        <td>{{dt.title}}</td>
+        <td>{{dt.borrowing_price}}</td>
+        <td>{{dt.borrow_date}}</td>
+        <td>{{request.user.useraccount.balance}}</td>
+
+        <td><a href="{% url 'return_book' dt.id%}" class="btn btn-sm mb-2 btn-danger">Return Book</a> </td>
+        <td><a href="{% url 'review' dt.id %}" class="btn btn-sm mb-2 btn-danger">Review Book</a> </td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock content %} 

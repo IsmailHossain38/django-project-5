@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+{% load crispy_forms_tags %}
+
+
+ <div  class="card  p-2">
+  <div class="card-body">
+      <div style="width:80%; margin:auto;">
+          <h3>This is Review section: </h3>
+      <hr>
+          <form  method="post" >
+              {% csrf_token %}
+              {{ review_form|crispy }}
+              <button type="submit" class="btn btn-danger">submit</button>
+            </form>
+          </div>
+  </div>
+</div> 
+
+{% endblock content %}

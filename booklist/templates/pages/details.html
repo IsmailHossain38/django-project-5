@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+{% load crispy_forms_tags %}
+
+ <div class="container text-center mb-5">
+    <div class="row g-2 justify-content-between  mt-5">
+      <div class="col-5 border">
+        <div class="p-2">
+            <img src="{{ booklist.image.url }}" class="card-img-top" alt="car-image">
+        </div>
+      </div>
+      <div class="col-5 border">
+        <div class="p-2">
+            <h5 class="card-title">Title: {{ booklist.title}}</h5>
+
+            <p class="card-text">Descriptions : {{booklist.description}}</p>
+            <small> <b> Borrow price : {{booklist.borrowing_price}} </b></small>
+            <br>
+            <h4>Categories: 
+              {% for cat in booklist.category.all %}
+              <a class='btn btn-primary g-2 m-2 '>{{cat.name}}</a>
+              {% endfor %}
+
+            </h4>
+            
+            
+            
+        </br>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'borrow_book' booklist.id %}" class="btn btn-sm mx-2 btn-warning">Borrow Book</a>
+            {% endif %}
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+
+
+ <div  class="card  p-2">
+  <div style="width:80%; margin:auto;" class="card  p-2">
+      <h4>Total Reviews: {{ review|length }}</h4>
+      <div class="card-body">
+        {% for rev in review %}
+          <h5>Name : {{rev.name}}   </h5>
+          <p><b>Comment</b>: {{rev.body}}</p>
+          <h5>Review: {{rev.review}}</h5>
+          <small> {{rev.created_time}}</small>
+          <hr>
+        {% endfor %}
+        
+      </div>
+  </div>
+
+  {% comment %} <div class="card-body">
+      <div style="width:80%; margin:auto;">
+          <h3>This is Review section: </h3>
+      <hr>
+          <form  method="post" >
+              {% csrf_token %}
+              {{ review_form|crispy }}
+              <button type="submit" class="btn btn-danger">submit</button>
+            </form>
+          </div>
+  </div> {% endcomment %}
+</div> 
+
+{% endblock content %}
