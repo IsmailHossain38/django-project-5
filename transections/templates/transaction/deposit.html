@@ -1,15 +1,23 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-
 {%block content%}
-
-<div style="width:50%; margin:auto;">
-<form  method="post" class="uniForm" novalidate>
-    {% csrf_token %}
-    <title>Diposit Amount</title>
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-danger">submit</button>
-  </form>
+<div style="margin-top:100px;">
+    <div style="width:50%; background:#EEF5FF; margin:auto; padding:50px;">
+      <h3 class="text-center font-weight-bold" style='color:#000; '>Diposit Ammount </h3>
+    <form  method="post" class="uniForm" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      {% for er in form.non_field_errors %}
+        <p class="bg-danger text-white p-3">{{er}}</p>
+      {% endfor %}
+      {% endif %}
+      <!-- {{form | crispy }} -->
+      {% for fm in form%} {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} 
+      {% endfor %}
+      <br>
+        <button type="submit" class="btn btn-danger">Deposit</button>
+      </form>
+    </div>
 </div>
-{% endblock %}
+{% endblock %} 

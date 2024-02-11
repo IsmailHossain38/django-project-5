@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import dj_database_url
 import environ
+from decouple import config
 env = environ.Env()
 environ.Env.read_env()
 
@@ -30,7 +31,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://librarian-3kwo.onrender.com','https://*.127.0.0.1']
+# CSRF_TRUSTED_ORIGINS = ['https://librarymanagement-j63g.onrender.com','https://*.127.0.0.1']
 
 
 # Application definition
@@ -100,11 +101,10 @@ WSGI_APPLICATION = 'librarymanagement.wsgi.application'
 #    }
 # }
 DATABASES = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgres://libraryian_user:5HgkDc4Oc5VKJDNTDqixRgHtsntb7sou@dpg-cmcp00g21fec73ct8ceg-a.oregon-postgres.render.com/libraryian',
-        
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Password validation
@@ -144,6 +144,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
 
 
 # Base url to serve media files

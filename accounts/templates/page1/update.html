@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{%block content%}
+<div class="mt-5">
+    <div style="width:50%; background:#EEF5FF; margin:auto; padding:50px;">
+        <h1 class="text-center h3 border-bottom mb-3 p-3"> Update your information</h1>
+    <form  method="post" class="uniForm" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      {% for er in form.non_field_errors %}
+        <p class="bg-danger text-white p-3">{{er}}</p>
+      {% endfor %}
+      {% endif %}
+      <!-- {{form | crispy }} -->
+      {% for fm in form%} {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} 
+      {% endfor %}
+      <br>
+        <button type="submit" class="btn btn-danger">Update</button>
+      </form>
+    </div>
+</div>
+{% endblock %} 

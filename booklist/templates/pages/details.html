@@ -5,7 +5,7 @@
 
 {% load crispy_forms_tags %}
 
- <div class="container text-center mb-5">
+ <div class="container text-center mb-5"  style="margin-top:100px;">
     <div class="row g-2 justify-content-between  mt-5">
       <div class="col-5 border">
         <div class="p-2">
@@ -46,7 +46,7 @@
         {% for rev in review %}
           <h5>Name : {{rev.name}}   </h5>
           <p><b>Comment</b>: {{rev.body}}</p>
-          <h5>Review: {{rev.review}}</h5>
+          <h5>Review: {{rev.rating}}</h5>
           <small> {{rev.created_time}}</small>
           <hr>
         {% endfor %}

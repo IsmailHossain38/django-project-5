@@ -1,56 +1,138 @@
 {% extends "base.html" %}
+{% load static %}
 
 
 {% block content %}
 
-<div class=" text-center mt-4">
-    <div class="row ">
-        <div class="col-md-2">
-            <h3>Categories </h3>
-            {% for dt in category %}
+<!-- Banner Section -->
+<div class="jumbotron jumbotron-fluid  text-dark pt-5 pb-5 mt-5" style="background-image: url({% static 'bg.png'%});
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+
+width: 100%; ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <div class="text-center">
+                    <h1>Welcome to our Library Management Site</h1>
+                    <p class="lead">Explore our vast collection of books and resources</p>
+                    <a href="{% url 'find_book'%}" class="btn text-light bg-danger ">Find Books</a>
+
+                </div>
+            </div>
             
-            <div class="form-check col bg-danger mx-2 ">
-                {% comment %} <input class="form-check-input p-2" type="radio" name="brands" id="{{dt.id}}"> {% endcomment %}
-                <label class="form-check-label p-2" for="{{dt.id}}">
-                    <b><a href="{% url 'Category_slug' dt.slug %}" class="btn text-light ">{{dt.name}}</a></b>
+            <div class="col-md-6">
+                <img src="{% static 'download.jpeg' %}" class="img-fluid w-100" alt="Library-Image">
+            </div>
+            
+        </div>
+    </div>
+</div> 
+
+{% comment %} category section {% endcomment %}
+<div class="container text-center mt-4 ">
+    <h2 class="text-center">Categories</h2> <br>
+    <div class="row row-cols-auto">
+        
+        {% for cat in category %}  
+            <div class="form-check col  border mx-2 ">
+                
+                <label class="form-check-label p-2" for="{{cat.id}}">
+                    <b><a href="{% url 'Category_slug' cat.slug %}" class="btn text-dark ">{{cat.name}}</a></b>
                 </label>
                 
             </div>
             
-            {% endfor %}
-        </div>
-        <div class='col-md-10'>
-            
-
-            
-            <div class="container  text-center">
-                <div class="row  justify-content-between">
-                    {% for dt in data %}
-                  <div class="col-md-3 m-3">
-                   <div class="">
-                    
-                        <div class="card mx-3  text-dark">
-                          <img src="{{dt.image.url}}" class="card-img-top" alt="car-image">
-                          <div class="card-body  ">
-                              <h5 class="card-title">Car Name: {{dt.title}}</h5>
-                              <p class="card-text">Descriptions : {{dt.description|truncatewords:10}}</p>
-                              <small>Borrow price: {{dt.borrowing_price}}</small>
-                              <br>
-                              <br>
-                              <a href="{% url 'details' dt.id %}" class="btn btn-sm mb-2 btn-primary">View Details</a>
-                          </div>
-                        </div>
-                     
-                   </div>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-
-        </div>  
+        {% endfor %}
     </div>
 </div>
 
+{% comment %} book section  {% endcomment %}
+ 
+    <div class="row ">
+        
+        <div class='col-md-12'>
+
+
+            <div style="background:#EEF5FF;">
+                <div class="swiffy-slider slider-item-show3 slider-nav-round slider-nav-outside container border-bottom pb-5">
+                    <hr>
+                    <h2 class='text-center text-dark '>Books</h2>    
+                    <hr>
+                    <ul class="slider-container">           
+                        {% for dt in data %}
+                            <li class='m-auto text-center'>
+                                <div class="card box-shadows  mx-3 pt-3 text-dark" style="width: 23rem; height:34rem;">
+                                    
+                                    <div class="card mx-3 text-dark">
+                                        <img src="{{dt.image.url}}" class="card-img-top" alt="car-image" width="100px" height="250px">
+                                        <div class="card-body  ">
+                                            <h5 class="card-title">Book: {{dt.title}}</h5>
+                                            <p class="card-text">Descriptions: {{dt.description|truncatewords:10}}</p>
+                                            <small>Borrow price: {{dt.borrowing_price}}</small>
+                                            <br>
+                                            <br>
+                                            <a href="{% url 'details' dt.id %}" class="btn btn-sm mb-2 btn-danger">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}    
+                    </ul> 
+                    <button type="button" class="slider-nav "></button>
+                    <button type="button" class="slider-nav slider-nav-next "></button>
+                    <div class="slider-indicators">
+                        <button class=" active"></button>
+                        <button ></button>
+                        <button ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Services Section -->
+<section id="services" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center mb-5">
+                <h2 class="text-dark">Our Services</h2>
+                <p class="text-muted">Discover the range of services we offer to enhance your library experience.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{% static 'online.jpeg' %}" class="card-img-top" alt="Online Catalog" height="300px">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary">Online Catalog Access</h4>
+                        <p class="card-text">Search, reserve, and renew materials from our vast collection through our user-friendly online catalog.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{% static 'recorse.jpeg' %}" class="card-img-top" alt="Resource Reservation" height="300px">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary">Resource Reservation</h4>
+                        <p class="card-text">Reserve materials in advance to ensure availability upon your visit to the library.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{% static 'OIP.jpeg' %}" class="card-img-top" alt="Interlibrary Loan" height="300px">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary">Interlibrary Loan</h4>
+                        <p class="card-text">Access materials from other libraries through our interlibrary loan service.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 

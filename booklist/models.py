@@ -15,16 +15,16 @@ class Books(models.Model):
         return self.title
 
 
-RATIGN_CHOICES =( 
-    (1, "1"), 
-    (2, "2"), 
-    (3, "3"), 
-    (4, "4"), 
-    (5, "5"), 
-) 
+STARCHOICES =[
+    ('⭐','⭐'),
+    ('⭐⭐','⭐⭐'),
+    ('⭐⭐⭐','⭐⭐⭐'),
+    ('⭐⭐⭐⭐','⭐⭐⭐⭐'),
+    ('⭐⭐⭐⭐⭐','⭐⭐⭐⭐⭐'),
+]
 class Review(models.Model):
     Books =models.ForeignKey(Books ,on_delete =models.CASCADE, related_name='reviews' ,null=True,blank = True)
-    rating =models.CharField(max_length=1, choices=RATIGN_CHOICES,blank=True, null =True)
+    rating =models.CharField(max_length=10, choices=STARCHOICES,blank=True, null =True)
     body = models.TextField(blank=True, null =True)
     name= models.CharField(max_length=100,blank=True, null =True)
     email = models.EmailField(unique=True,)
